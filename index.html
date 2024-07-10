@@ -16,7 +16,7 @@
 #canvaswrapper {
   text-align: center ;
 }
-</style><style>@font-face { font-family: "BitCell" ; src: url("fonts/BitCell.ttf") format("truetype"); }</style><script>window.fonts = ["BitCell"]</script></head><body class="noselect custom-cursor" oncontextmenu="return false;"><div id="canvaswrapper"></div><script type="text/javascript">var resources = {"images":[{"file":"card.png","version":34,"size":244,"properties":{"frames":1,"fps":5}},{"file":"icon.png","version":0,"size":0,"properties":{}}],"assets":[],"maps":{},"sounds":[],"music":[]};
+</style><style>@font-face { font-family: "BitCell" ; src: url("fonts/BitCell.ttf") format("truetype"); }</style><script>window.fonts = ["BitCell"]</script></head><body class="noselect custom-cursor" oncontextmenu="return false;"><div id="canvaswrapper"></div><script type="text/javascript">var resources = {"images":[{"file":"card.png","version":34,"size":244,"properties":{"frames":1,"fps":5}},{"file":"g.png","version":2,"size":181,"properties":{"frames":1,"fps":5}},{"file":"gg.png","version":2,"size":181,"properties":{"frames":1,"fps":5}},{"file":"icon.png","version":0,"size":0,"properties":{}},{"file":"r.png","version":3,"size":181,"properties":{"frames":1,"fps":5}},{"file":"v.png","version":2,"size":181,"properties":{"frames":1,"fps":5}},{"file":"w.png","version":2,"size":181,"properties":{"frames":1,"fps":5}},{"file":"y.png","version":2,"size":181,"properties":{"frames":1,"fps":5}}],"assets":[],"maps":{},"sounds":[],"music":[]};
 var graphics = "M1";
 
 </script><script type="text/javascript">var orientation = 'any' ;
@@ -83,21 +83,25 @@ Card = class
     this.x = x
     this.y = y
     this.cType = cType
+    this.shown = false
   end
 end
 
 myTable = new Table()
 
 // Make the cards
-myTable.addCard(new Card(-20,50,"kk"))
-myTable.addCard(new Card(20,50,"kk"))
-myTable.addCard(new Card(60,50,"kk"))
-myTable.addCard(new Card(-20,0,"kk"))
-myTable.addCard(new Card(20,0,"kk"))
-myTable.addCard(new Card(60,0,"kk"))
-myTable.addCard(new Card(-20,-50,"kk"))
-myTable.addCard(new Card(20,-50,"kk"))
-myTable.addCard(new Card(60,-50,"kk"))
+myTable.addCard(new Card(-60,50,"r"))
+myTable.addCard(new Card(-20,50,"g"))
+myTable.addCard(new Card(20,50,"y"))
+myTable.addCard(new Card(60,50,"gg"))
+myTable.addCard(new Card(-60,0,"gg"))
+myTable.addCard(new Card(-20,0,"r"))
+myTable.addCard(new Card(20,0,"v"))
+myTable.addCard(new Card(60,0,"y"))
+myTable.addCard(new Card(-60,-50,"w"))
+myTable.addCard(new Card(-20,-50,"v"))
+myTable.addCard(new Card(20,-50,"w"))
+myTable.addCard(new Card(60,-50,"g"))
 
 init = function()
 end
@@ -112,6 +116,7 @@ update = function()
       cardHeight = cardSize
       if mouse.x >= cx - cardWidth / 2 and mouse.x <= cx + cardWidth / 2 and mouse.y >= cy - cardHeight / 2 and mouse.y <= cy + cardHeight / 2 then
         // Card was clicked
+        myTable.cards[i].shown = true
         print("Card clicked: " + myTable.cards[i].cType)
       end
     end
@@ -122,6 +127,9 @@ draw = function()
   // Draw the cards
   for c in myTable.cards
     screen.drawSprite("card", c.x, c.y,cardSize,cardSize)
+    if c.shown then
+      screen.drawSprite(c.cType, c.x, c.y, cardSize, cardSize)
+    end
   end
 end
 
