@@ -61,8 +61,10 @@ window.addEventListener("load",function() {
 
 
 function()
-cardSize = 50
 
+cardSize = 50
+shownCount = 0
+startTime = 0
 
 // Table Class
 Table = class
@@ -104,6 +106,7 @@ myTable.addCard(new Card(20,-50,"w"))
 myTable.addCard(new Card(60,-50,"g"))
 
 init = function()
+  startTime = floor(system.time()/1000)
 end
 
 update = function()
@@ -116,7 +119,13 @@ update = function()
       cardHeight = cardSize
       if mouse.x >= cx - cardWidth / 2 and mouse.x <= cx + cardWidth / 2 and mouse.y >= cy - cardHeight / 2 and mouse.y <= cy + cardHeight / 2 then
         // Card was clicked
-        myTable.cards[i].shown = true
+        if myTable.cards[i].shown == false and shownCount < 2 then
+          shownCount += 1
+          myTable.cards[i].shown = true
+        elsif myTable.cards[i].shown == true then
+          shownCount -= 1
+          myTable.cards[i].shown = false
+        end
         print("Card clicked: " + myTable.cards[i].cType)
       end
     end
@@ -124,6 +133,7 @@ update = function()
 end
 
 draw = function()
+  screen.clear()
   // Draw the cards
   for c in myTable.cards
     screen.drawSprite("card", c.x, c.y,cardSize,cardSize)
@@ -131,6 +141,8 @@ draw = function()
       screen.drawSprite(c.cType, c.x, c.y, cardSize, cardSize)
     end
   end
+  // draw time
+  screen.drawText(floor(system.time()/1000)-startTime,0,90,12,"White")
 end
 
 
