@@ -62,32 +62,54 @@ window.addEventListener("load",function() {
 
 function()
 
-Table = object
-  cards = []
+// Table Class
+Table = class
+  constructor = function()
+    this.cards = []
+  end
+  
+  addCard = function(card)
+    this.cards.push(card)
+  end
 end
 
-card = object
-  x = 100
-  y = 100
-  cType = "kk"
+// Card Class
+Card = class
+  constructor = function(x, y, cType)
+    this.x = x
+    this.y = y
+    this.cType = cType
+  end
 end
 
-Table.addCard = function(card)
-  cards.push(card)
-end
+myTable = new Table()
+
+// Make the cards
+myTable.addCard(new Card(-20,50,"kk"))
+myTable.addCard(new Card(20,50,"kk"))
+myTable.addCard(new Card(60,50,"kk"))
+myTable.addCard(new Card(-20,0,"kk"))
+myTable.addCard(new Card(20,0,"kk"))
+myTable.addCard(new Card(60,0,"kk"))
+myTable.addCard(new Card(-20,-50,"kk"))
+myTable.addCard(new Card(20,-50,"kk"))
+myTable.addCard(new Card(60,-50,"kk"))
 
 init = function()
-  Table.addCard(card)
 end
 
 update = function()
 end
 
 draw = function()
-  for c in Table.cards
-    print(c.cType)
+  // Draw the cards
+  for c in myTable.cards
+    screen.drawSprite("card", c.x, c.y,50,50)
   end
 end
+
+
+
 end()
 
 
