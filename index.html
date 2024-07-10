@@ -112,6 +112,7 @@ myTable.addCard(new Card(60,-50,"g"))
 checkMatch = function()
   if shownCount == 2 then
     ss = []
+    print(ss)
     m = false
     for i=0 to myTable.size-1
       if myTable.cards[i].shown then
@@ -131,6 +132,7 @@ init = function()
 end
 
 update = function()
+  //print(shownCount)
   checkMatch()
   // check if on card
   if mouse.release then
