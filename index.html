@@ -61,15 +61,19 @@ window.addEventListener("load",function() {
 
 
 function()
+cardSize = 50
+
 
 // Table Class
 Table = class
   constructor = function()
     this.cards = []
+    this.size = 0
   end
   
   addCard = function(card)
     this.cards.push(card)
+    this.size += 1
   end
 end
 
@@ -99,12 +103,25 @@ init = function()
 end
 
 update = function()
+  // check if on card
+  if mouse.release then
+    for i=0 to myTable.size-1
+      cx = myTable.cards[i].x
+      cy = myTable.cards[i].y
+      cardWidth = cardSize
+      cardHeight = cardSize
+      if mouse.x >= cx - cardWidth / 2 and mouse.x <= cx + cardWidth / 2 and mouse.y >= cy - cardHeight / 2 and mouse.y <= cy + cardHeight / 2 then
+        // Card was clicked
+        print("Card clicked: " + myTable.cards[i].cType)
+      end
+    end
+  end
 end
 
 draw = function()
   // Draw the cards
   for c in myTable.cards
-    screen.drawSprite("card", c.x, c.y,50,50)
+    screen.drawSprite("card", c.x, c.y,cardSize,cardSize)
   end
 end
 
