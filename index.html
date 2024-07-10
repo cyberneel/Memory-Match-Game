@@ -67,23 +67,26 @@ Table = object
 end
 
 card = object
-  x = 0
-  y = 0
-  type = ""
+  x = 100
+  y = 100
+  cType = "kk"
 end
 
 Table.addCard = function(card)
   cards.push(card)
 end
 
-
 init = function()
+  Table.addCard(card)
 end
 
 update = function()
 end
 
 draw = function()
+  for c in Table.cards
+    print(c.cType)
+  end
 end
 end()
 
