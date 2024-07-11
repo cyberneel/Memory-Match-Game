@@ -16,7 +16,7 @@
 #canvaswrapper {
   text-align: center ;
 }
-</style><style>@font-face { font-family: "BitCell" ; src: url("fonts/BitCell.ttf") format("truetype"); }</style><script>window.fonts = ["BitCell"]</script></head><body class="noselect custom-cursor" oncontextmenu="return false;"><div id="canvaswrapper"></div><script type="text/javascript">var resources = {"images":[{"file":"card.png","version":34,"size":244,"properties":{"frames":1,"fps":5}},{"file":"g.png","version":2,"size":181,"properties":{"frames":1,"fps":5}},{"file":"gg.png","version":2,"size":181,"properties":{"frames":1,"fps":5}},{"file":"icon.png","version":40,"size":365,"properties":{"frames":1,"fps":5}},{"file":"r.png","version":3,"size":181,"properties":{"frames":1,"fps":5}},{"file":"spriteold.png","version":2,"size":352,"properties":{"frames":1,"fps":5}},{"file":"v.png","version":2,"size":181,"properties":{"frames":1,"fps":5}},{"file":"w.png","version":2,"size":181,"properties":{"frames":1,"fps":5}},{"file":"y.png","version":2,"size":181,"properties":{"frames":1,"fps":5}}],"assets":[],"maps":{},"sounds":[],"music":[]};
+</style><style>@font-face { font-family: "BitCell" ; src: url("fonts/BitCell.ttf") format("truetype"); }</style><script>window.fonts = ["BitCell"]</script></head><body class="noselect custom-cursor" oncontextmenu="return false;"><div id="canvaswrapper"></div><script type="text/javascript">var resources = {"images":[{"file":"card.png","version":34,"size":244,"properties":{"frames":1,"fps":5}},{"file":"g.png","version":2,"size":181,"properties":{"frames":1,"fps":5}},{"file":"gg.png","version":2,"size":181,"properties":{"frames":1,"fps":5}},{"file":"icon.png","version":40,"size":365,"properties":{"frames":1,"fps":5}},{"file":"r.png","version":3,"size":181,"properties":{"frames":1,"fps":5}},{"file":"spriteold.png","version":2,"size":352,"properties":{"frames":1,"fps":5}},{"file":"startbtn.png","version":48,"size":260,"properties":{"frames":1,"fps":5}},{"file":"v.png","version":2,"size":181,"properties":{"frames":1,"fps":5}},{"file":"w.png","version":2,"size":181,"properties":{"frames":1,"fps":5}},{"file":"y.png","version":2,"size":181,"properties":{"frames":1,"fps":5}}],"assets":[],"maps":{},"sounds":[],"music":[]};
 var graphics = "M1";
 
 </script><script type="text/javascript">var orientation = 'any' ;
@@ -111,11 +111,11 @@ myTable.addCard(new Card(60,-50,"g"))
 // function to check matching cards
 checkMatch = function()
   if shownCount == 2 then
-    ss = []
-    print(ss)
-    m = false
+    local ss = []
+    //print(ss)
+    local m = false
     for i=0 to myTable.size-1
-      if myTable.cards[i].shown then
+      if myTable.cards[i].render and myTable.cards[i].shown then
         ss.push(i)
       end
     end
@@ -138,10 +138,10 @@ update = function()
   if mouse.release then
     for i=0 to myTable.size-1
       if myTable.cards[i].render then
-        cx = myTable.cards[i].x
-        cy = myTable.cards[i].y
-        cardWidth = cardSize
-        cardHeight = cardSize
+        local cx = myTable.cards[i].x
+        local cy = myTable.cards[i].y
+        local cardWidth = cardSize
+        local cardHeight = cardSize
         if mouse.x >= cx - cardWidth / 2 and mouse.x <= cx + cardWidth / 2 and mouse.y >= cy - cardHeight / 2 and mouse.y <= cy + cardHeight / 2 then
           // Card was clicked
           if myTable.cards[i].shown == false and shownCount < 2 then
@@ -159,6 +159,7 @@ update = function()
 end
 
 draw = function()
+  
   screen.clear()
   // Draw the cards
   for c in myTable.cards
