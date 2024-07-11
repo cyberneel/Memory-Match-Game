@@ -69,6 +69,8 @@ startTime = 0
 gameEnd = false
 gameStart = false
 
+score = 999
+
 // Table Class
 Table = class
   constructor = function()
@@ -160,7 +162,8 @@ update = function()
   end
   
   if gameEnd then
-    system.exit()
+    score = floor(system.time()/1000)-startTime
+    return
   end
   
   //print(shownCount)
@@ -191,6 +194,12 @@ draw = function()
   if gameStart == false then
     screen.drawSprite("startbtn", 0, 0, 100, 100)
     screen.drawText("START",0,0,18,"Black")
+    return
+  end
+  
+  if gameEnd then
+    screen.drawText("Your time: " + score,0,0,18,"White")
+    system.pause()
     return
   end
   
