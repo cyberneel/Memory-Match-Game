@@ -127,9 +127,9 @@ checkMatch = function()
   end
 end
 
-checkClick = function(obj,w,h)
-  local cx = obj.x
-  local cy = obj.y
+checkClick = function(x,y,w,h)
+  local cx = x
+  local cy = y
   if mouse.x >= cx - w / 2 and mouse.x <= cx + h / 2 and mouse.y >= cy - w / 2 and mouse.y <= cy + h / 2 then
     return true
   end
@@ -141,13 +141,35 @@ init = function()
 end
 
 update = function()
+  
+  if gameStart == false then
+    if mouse.release and checkClick(0,0,100,100) then
+      gameStart = true
+      startTime = floor(system.time()/1000)
+    end
+    return
+  end
+  
+  // check game end
+  gameEnd = true
+  for c in myTable.cards
+    if c.render then
+      gameEnd = false
+      break
+    end
+  end
+  
+  if gameEnd then
+    system.exit()
+  end
+  
   //print(shownCount)
   checkMatch()
   // check if on card
   if mouse.release then
     for i=0 to myTable.size-1
       if myTable.cards[i].render then
-        if checkClick(myTable.cards[i],cardSize,cardSize) then
+        if checkClick(myTable.cards[i].x,myTable.cards[i].y,cardSize,cardSize) then
           // Card was clicked
           if myTable.cards[i].shown == false and shownCount < 2 then
             shownCount += 1
